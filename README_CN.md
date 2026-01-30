@@ -20,10 +20,13 @@
 - Node.js 18+
 - pnpm
 
-**1. 启动后端（PocketBase）**
+**1. 准备并启动后端（PocketBase）**
 
 ```bash
-cd pocketbase
+# 下载对应系统的二进制文件
+chmod +x setup.sh && ./setup.sh
+
+# 启动服务
 ./pocketbase serve
 ```
 
@@ -58,11 +61,10 @@ pnpm run build
 cd ..
 
 # 2. 部署到 PocketBase
-rm -rf pocketbase/pb_public/*
-cp -r frontend/out/* pocketbase/pb_public/
+rm -rf pb_public/*
+cp -r frontend/out/* pb_public/
 
 # 3. 启动服务
-cd pocketbase
 ./pocketbase serve --http="0.0.0.0:8090"
 ```
 
@@ -107,12 +109,12 @@ cd pocketbase
 
 ```
 pulse/
-├── pocketbase/               # 后端
-│   ├── pocketbase           # 可执行文件
-│   ├── pb_migrations/       # 数据库迁移
-│   ├── pb_public/           # 前端构建产物
-│   └── pb_data/             # SQLite 数据库
-├── frontend/                # 前端源码
+├── pocketbase                # 可执行文件 (通过脚本下载)
+├── setup.sh                  # PocketBase 环境准备脚本
+├── pb_migrations/            # 数据库迁移
+├── pb_public/                # 前端构建产物
+├── pb_data/                  # SQLite 数据库
+├── frontend/                 # 前端源码
 │   ├── app/                 # Next.js 路由
 │   ├── components/          # React 组件
 │   ├── lib/                 # 工具和 API
@@ -123,7 +125,7 @@ pulse/
 ## 常见问题
 
 **Q: 如何备份数据？**  
-A: 复制 `pocketbase/pb_data/` 目录即可。
+A: 复制 `pb_data/` 目录即可。
 
 **Q: 如何修改端口？**  
 A: 启动时指定：`./pocketbase serve --http="0.0.0.0:YOUR_PORT"`

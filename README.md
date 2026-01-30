@@ -20,10 +20,13 @@ A modern Changelog publishing system based on PocketBase + Next.js, supporting s
 - Node.js 18+
 - pnpm
 
-**1. Start the Backend (PocketBase)**
+**1. Download & Start Backend (PocketBase)**
 
 ```bash
-cd pocketbase
+# Download the binary for your OS
+chmod +x setup.sh && ./setup.sh
+
+# Start the service
 ./pocketbase serve
 ```
 
@@ -58,11 +61,10 @@ pnpm run build
 cd ..
 
 # 2. Deploy to PocketBase
-rm -rf pocketbase/pb_public/*
-cp -r frontend/out/* pocketbase/pb_public/
+rm -rf pb_public/*
+cp -r frontend/out/* pb_public/
 
 # 3. Start Service
-cd pocketbase
 ./pocketbase serve --http="0.0.0.0:8090"
 ```
 
@@ -107,12 +109,12 @@ You can manage tags in the `tags` collection:
 
 ```
 pulse/
-├── pocketbase/               # Backend
-│   ├── pocketbase           # Executable
-│   ├── pb_migrations/       # Database migrations
-│   ├── pb_public/           # Frontend build artifacts
-│   └── pb_data/             # SQLite database
-├── frontend/                # Frontend source code
+├── pocketbase                # Executable (Generic/Downloaded)
+├── setup.sh                  # Setup script for PocketBase
+├── pb_migrations/            # Database migrations
+├── pb_public/                # Frontend build artifacts
+├── pb_data/                  # SQLite database
+├── frontend/                 # Frontend source code
 │   ├── app/                 # Next.js routes
 │   ├── components/          # React components
 │   ├── lib/                 # Utilities and API
@@ -123,10 +125,10 @@ pulse/
 ## FAQ
 
 **Q: How do I back up my data?**  
-A: Just copy the `pocketbase/pb_data/` directory.
+A: Just copy the `pb_data/` directory.
 
 **Q: How do I change the port?**  
-A: Specify it at startup: `./pocketbase serve --http="0.0.0.0:YOUR_PORT"`
+A: Start like this: `./pocketbase serve --http="0.0.0.0:YOUR_PORT"`
 
 **Q: How can the frontend connect to a custom backend address?**  
 A: Set `NEXT_PUBLIC_PB_URL=https://your-api.com` in `frontend/.env.local`.

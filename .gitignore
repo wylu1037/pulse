@@ -35,8 +35,10 @@ frontend/.vercel/
 frontend/.source/
 
 # PocketBase
-pocketbase/pb_data/*
-!pocketbase/pb_data/.gitkeep
+pb_data/*
+!pb_data/.gitkeep
+pb_public/
+pocketbase
 
 # Application logs
 *.log
