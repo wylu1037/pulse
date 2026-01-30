@@ -1,0 +1,42 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.pem
+
+# Frontend dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.*
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/versions
+
+# Frontend build & testing
+frontend/coverage/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Frontend misc & debug
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# Frontend env and vercel
+frontend/.env*
+frontend/.vercel/
+
+# Frontend generated
+frontend/.source/
+
+# PocketBase
+pocketbase/pb_data/*
+!pocketbase/pb_data/.gitkeep
+
+# Application logs
+*.log
