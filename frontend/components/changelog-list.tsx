@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { Changelog } from "@/lib/api/pocketbase";
-import { formatDate } from "@/lib/utils";
-import { marked } from "marked";
-import * as Icons from "lucide-react";
+import { Changelog } from "@/lib/api/pocketbase"
+import { formatDate } from "@/lib/utils"
+import { marked } from "marked"
+import * as Icons from "lucide-react"
 
 interface ChangelogListProps {
-  changelogs: Changelog[];
+  changelogs: Changelog[]
 }
 
 export function ChangelogList({ changelogs }: ChangelogListProps) {
   return (
     <div className="relative">
       {changelogs.map((changelog) => {
-        const date = new Date(changelog.date);
-        const formattedDate = formatDate(date);
+        const date = new Date(changelog.date)
+        const formattedDate = formatDate(date)
 
         return (
           <div key={changelog.id} className="relative">
@@ -49,38 +49,50 @@ export function ChangelogList({ changelogs }: ChangelogListProps) {
                     </h2>
 
                     {/* Tags */}
-                    {changelog.expand?.tags && changelog.expand.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {changelog.expand.tags.map((tag) => {
-                          const Icon = tag.icon ? (Icons as any)[tag.icon] : null;
-                          return (
-                            <span
-                              key={tag.id}
-                              className="h-6 w-fit px-2 text-xs font-medium rounded-full border flex items-center gap-1 justify-center"
-                              style={{
-                                backgroundColor: tag.color ? tag.color + "20" : undefined,
-                                borderColor: tag.color || undefined,
-                                color: tag.color || undefined,
-                              }}
-                            >
-                              {Icon && <Icon className="h-3 w-3" />}
-                              {tag.name}
-                            </span>
-                          );
-                        })}
-                      </div>
-                    )}
+                    {changelog.expand?.tags &&
+                      changelog.expand.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {changelog.expand.tags.map((tag) => {
+                            const Icon = tag.icon
+                              ? (
+                                  Icons as unknown as Record<
+                                    string,
+                                    React.ComponentType<{ className?: string }>
+                                  >
+                                )[tag.icon]
+                              : null
+                            return (
+                              <span
+                                key={tag.id}
+                                className="h-6 w-fit px-2 text-xs font-medium rounded-full border flex items-center gap-1 justify-center"
+                                style={{
+                                  backgroundColor: tag.color
+                                    ? tag.color + "20"
+                                    : undefined,
+                                  borderColor: tag.color || undefined,
+                                  color: tag.color || undefined,
+                                }}
+                              >
+                                {Icon && <Icon className="h-3 w-3" />}
+                                {tag.name}
+                              </span>
+                            )
+                          })}
+                        </div>
+                      )}
                   </div>
                   <div
                     className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance"
-                    dangerouslySetInnerHTML={{ __html: marked(changelog.description) }}
+                    dangerouslySetInnerHTML={{
+                      __html: marked(changelog.description),
+                    }}
                   />
                 </div>
               </div>
             </div>
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

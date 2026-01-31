@@ -78,7 +78,14 @@ export function CompactView({ changelogs }: CompactViewProps) {
                   <TableCell className="p-4 align-middle">
                     <div className="flex flex-wrap gap-1">
                       {changelog.expand?.tags?.slice(0, 2).map((tag) => {
-                        const Icon = tag.icon ? (Icons as any)[tag.icon] : null
+                        const Icon = tag.icon
+                          ? (
+                              Icons as unknown as Record<
+                                string,
+                                React.ComponentType<{ className?: string }>
+                              >
+                            )[tag.icon]
+                          : null
                         return (
                           <span
                             key={tag.id}

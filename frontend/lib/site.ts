@@ -1,7 +1,9 @@
 export const siteConfig = {
-  name: "Changelog Template",
+  name: "Pulse Changelog",
+  site_title: "Pulse Changelog",
+  site_description: "Product update log, recording every step of progress",
   url: "https://changelog-magicui.vercel.app",
-  description: "A minimal changelog template built using Next.js.",
+  description: "Product update log, recording every step of progress",
   links: {
     twitter: "https://x.com/magicuidesign",
     github: "https://github.com/magicuidesign",

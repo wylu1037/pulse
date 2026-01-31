@@ -1,12 +1,14 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import Image from "next/image"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ChangelogList } from "@/components/changelog-list"
 import { CompactView } from "@/components/compact-view"
 import { CommandPalette } from "@/components/command-palette"
 import { getTags } from "@/lib/api/changelogs"
 import { useInfiniteChangelogs } from "@/lib/hooks/use-infinite-scroll"
+import { useSiteConfig } from "@/lib/hooks/use-site-config"
 import type { Tag } from "@/lib/api/pocketbase"
 import { Loader2, File } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -22,11 +24,13 @@ import {
 type ViewMode = "timeline" | "compact"
 
 export default function HomePage() {
+  const { siteTitle, logoUrl } = useSiteConfig()
   const [tags, setTags] = useState<Tag[]>([])
   const [activeTag, setActiveTag] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
-  const [serverSearch, setServerSearch] = useState("")
+  const [serverSearch] = useState("") // setServerSearch reserved for future use
   const [viewMode, setViewMode] = useState<ViewMode>("timeline")
+
   const observerTarget = useRef<HTMLDivElement>(null)
 
   const { changelogs, loadMore, hasMore, loading, error } =
@@ -73,7 +77,21 @@ export default function HomePage() {
       <div className="border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="max-w-5xl mx-auto relative">
           <div className="p-3 flex items-center justify-between">
-            <h1 className="text-3xl font-semibold tracking-tight">Changelog</h1>
+            <div className="flex items-center gap-3">
+              {logoUrl && (
+                <Image
+                  src={logoUrl}
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                  unoptimized
+                />
+              )}
+              <h1 className="text-3xl font-semibold tracking-tight">
+                {siteTitle}
+              </h1>
+            </div>
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"

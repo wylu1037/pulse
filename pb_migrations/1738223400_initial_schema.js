@@ -191,7 +191,6 @@ migrate((db) => {
 
   dao.saveCollection(siteConfigCollection);
 
-  // Insert initial tag data
   const initialTags = [
     {
       name: "New Feature",
@@ -235,14 +234,13 @@ migrate((db) => {
 
   // Insert initial site configuration
   const configRecord = new Record(siteConfigCollection);
-  configRecord.set("site_title", "Pulse Changelog");
+  configRecord.set("site_title", "Changelog");
   configRecord.set("site_description", "Product update log, recording every step of progress");
-  configRecord.set("primary_color", "#3B82F6");
+  configRecord.set("primary_color", "#171717");
   dao.saveRecord(configRecord);
 
 }, (db) => {
   const dao = new Dao(db);
-  // Rollback operations
   try {
     const changelogs = dao.findCollectionByNameOrId("changelogs");
     if (changelogs) dao.deleteCollection(changelogs);
