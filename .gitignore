@@ -38,6 +38,9 @@ frontend/.source/
 pb_data/*
 !pb_data/.gitkeep
 pb_public/
+
+# Go binary
+pulse
 pocketbase
 
 # Application logs
