@@ -1,24 +1,25 @@
 "use client"
 
-import { useEffect, useState, useCallback, useRef } from "react"
+import { useEffect, useState, useRef } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { SearchBar } from "@/components/search-bar"
-import { TagFilter } from "@/components/tag-filter"
-import { ViewSwitcher, type ViewMode } from "@/components/view-switcher"
 import { ChangelogList } from "@/components/changelog-list"
 import { CompactView } from "@/components/compact-view"
+import { CommandPalette } from "@/components/command-palette"
 import { getTags } from "@/lib/api/changelogs"
 import { useInfiniteChangelogs } from "@/lib/hooks/use-infinite-scroll"
 import type { Tag } from "@/lib/api/pocketbase"
-import { Loader2, FileQuestion, File } from "lucide-react"
+import { Loader2, File } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Kbd } from "@/components/ui/kbd"
 import {
   Empty,
-  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
+
+type ViewMode = "timeline" | "compact"
 
 export default function HomePage() {
   const [tags, setTags] = useState<Tag[]>([])
@@ -66,21 +67,6 @@ export default function HomePage() {
     return () => observer.disconnect()
   }, [hasMore, loading, loadMore])
 
-  const handleTagClick = (slug: string | null) => {
-    setActiveTag(slug)
-    setServerSearch("")
-    setSearchTerm("")
-  }
-
-  const handleSearch = (term: string) => {
-    setSearchTerm(term)
-  }
-
-  const handleServerSearch = (term: string) => {
-    setServerSearch(term)
-    setSearchTerm("")
-  }
-
   return (
     <div className="min-h-screen bg-background relative">
       {/* Header */}
@@ -88,26 +74,26 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto relative">
           <div className="p-3 flex items-center justify-between">
             <h1 className="text-3xl font-semibold tracking-tight">Changelog</h1>
-            <ThemeToggle />
-          </div>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="border-b border-border/50 bg-background">
-        <div className="max-w-5xl mx-auto px-6 lg:px-10 py-4 space-y-4">
-          <SearchBar
-            onSearch={handleSearch}
-            onServerSearch={handleServerSearch}
-          />
-
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <TagFilter
-              tags={tags}
-              activeTag={activeTag}
-              onTagClick={handleTagClick}
-            />
-            <ViewSwitcher mode={viewMode} onChange={setViewMode} />
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const event = new KeyboardEvent("keydown", {
+                    key: "k",
+                    metaKey: true,
+                    ctrlKey: true,
+                  })
+                  document.dispatchEvent(event)
+                }}
+                className="text-muted-foreground hover:text-foreground relative h-9 w-full justify-start bg-background text-sm font-normal shadow-none sm:pr-12 md:w-40 lg:w-64"
+              >
+                <span className="inline-flex">Search...</span>
+                <Kbd className="pointer-events-none absolute right-[0.5rem] hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                  <span className="text-xs">⌘</span>K
+                </Kbd>
+              </Button>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
@@ -163,6 +149,17 @@ export default function HomePage() {
           </>
         )}
       </div>
+
+      {/* Command Palette */}
+      <CommandPalette
+        changelogs={changelogs}
+        tags={tags}
+        activeTag={activeTag}
+        viewMode={viewMode}
+        onSearch={setSearchTerm}
+        onTagSelect={setActiveTag}
+        onViewChange={setViewMode}
+      />
     </div>
   )
 }
