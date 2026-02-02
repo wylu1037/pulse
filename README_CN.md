@@ -1,11 +1,14 @@
 # Pulse - Changelog 管理系统
 
+[![Pulse Demo](./docs/assets/index.png)](https://github.com/wylu1037/pulse)
+
 基于 PocketBase + Next.js 的现代化 Changelog 发布系统，支持单文件部署。
 
 ## 特性
 
 - ✨ **现代化 UI** - 基于 Next.js 15 + Tailwind CSS + shadcn/ui
 - 🎯 **功能完整** - 搜索、筛选、分页、视图切换
+  ![命令面板](./docs/assets/index-command.png)
 - 🌙 **暗色模式** - 自动跟随系统或手动切换
 - 📱 **响应式设计** - 完美适配桌面和移动设备
 - 🚀 **单文件部署** - 一个可执行文件包含前后端
@@ -78,8 +81,10 @@ cp -r frontend/out/* pb_public/
 ### 发布 Changelog
 
 1. 访问 http://localhost:8090/\_/ 登录后台
+   ![后台管理](./docs/assets/admin.png)
 2. 进入 `changelogs` collection
 3. 点击 "New record" 创建新条目
+   ![创建条目](./docs/assets/admin-edit-changelog.png)
 4. 填写字段：
    - **title**: Changelog 标题
    - **description**: 详细描述（支持 Markdown）

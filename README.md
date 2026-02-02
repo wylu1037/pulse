@@ -1,11 +1,14 @@
 # Pulse - Changelog Management System
 
+[![Pulse Demo](./docs/assets/index.png)](https://github.com/wylu1037/pulse)
+
 A modern Changelog publishing system based on PocketBase + Next.js, supporting single-file deployment.
 
 ## Features
 
 - ✨ **Modern UI** - Built with Next.js 15 + Tailwind CSS + shadcn/ui
 - 🎯 **Full-featured** - Search, filtering, pagination, view switching
+  ![Command Palette](./docs/assets/index-command.png)
 - 🌙 **Dark Mode** - System-sync or manual toggle
 - 📱 **Responsive Design** - Optimized for both desktop and mobile
 - 🚀 **Single-file Deployment** - One executable containing both frontend and backend
@@ -78,8 +81,10 @@ Now visit http://localhost:8090 to see the full application!
 ### Publishing a Changelog
 
 1. Visit http://localhost:8090/\_/ and log in to the admin panel.
+   ![Admin Panel](./docs/assets/admin.png)
 2. Go to the `changelogs` collection.
 3. Click "New record" to create a new entry.
+   ![New Record](./docs/assets/admin-edit-changelog.png)
 4. Fill in the fields:
    - **title**: Changelog title
    - **description**: Detailed description (supports Markdown)

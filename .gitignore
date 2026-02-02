@@ -45,3 +45,6 @@ pocketbase
 
 # Application logs
 *.log
+
+# Local documentation
+docs/plans/
