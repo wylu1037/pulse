@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   transpilePackages: ["geist"],
   env: {
-    NEXT_PUBLIC_PB_URL: process.env.NEXT_PUBLIC_PB_URL || "http://localhost:8090",
+    NEXT_PUBLIC_PB_URL: process.env.NEXT_PUBLIC_PB_URL || "/",
   },
 }
 
