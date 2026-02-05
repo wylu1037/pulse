@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 
-const PB_URL = process.env.NEXT_PUBLIC_PB_URL || "http://localhost:8090";
+const PB_URL = process.env.NEXT_PUBLIC_PB_URL || "/";
 export const pb = new PocketBase(PB_URL);
 
 // 禁用自动取消（适用于客户端应用）
