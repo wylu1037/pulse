@@ -41,6 +41,15 @@ func init() {
 			Required: false,
 			Min:      floatPtr(0),
 		})
+		tagsCollection.Fields.Add(&core.AutodateField{
+			Name:     "created",
+			OnCreate: true,
+		})
+		tagsCollection.Fields.Add(&core.AutodateField{
+			Name:     "updated",
+			OnCreate: true,
+			OnUpdate: true,
+		})
 
 		tagsCollection.AddIndex("idx_tags_name", true, "name", "")
 		tagsCollection.AddIndex("idx_tags_slug", true, "slug", "")
@@ -83,6 +92,15 @@ func init() {
 			CollectionId:  "tags_collection_id",
 			CascadeDelete: false,
 		})
+		changelogsCollection.Fields.Add(&core.AutodateField{
+			Name:     "created",
+			OnCreate: true,
+		})
+		changelogsCollection.Fields.Add(&core.AutodateField{
+			Name:     "updated",
+			OnCreate: true,
+			OnUpdate: true,
+		})
 
 		changelogsCollection.AddIndex("idx_changelogs_date", false, "date DESC", "")
 		changelogsCollection.AddIndex("idx_changelogs_version", false, "version", "")
@@ -124,6 +142,15 @@ func init() {
 			Min:      0,
 			Max:      7,
 			Pattern:  "^#[0-9A-Fa-f]{6}$",
+		})
+		siteConfigCollection.Fields.Add(&core.AutodateField{
+			Name:     "created",
+			OnCreate: true,
+		})
+		siteConfigCollection.Fields.Add(&core.AutodateField{
+			Name:     "updated",
+			OnCreate: true,
+			OnUpdate: true,
 		})
 
 		siteConfigCollection.ListRule = strPtr("")
