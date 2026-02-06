@@ -77,38 +77,51 @@ export function CompactView({ changelogs }: CompactViewProps) {
                   </TableCell>
                   <TableCell className="p-4 align-middle">
                     <div className="flex flex-wrap gap-1">
-                      {changelog.expand?.tags?.slice(0, 2).map((tag) => {
-                        const Icon = tag.icon
-                          ? (
-                              Icons as unknown as Record<
-                                string,
-                                React.ComponentType<{ className?: string }>
-                              >
-                            )[tag.icon]
-                          : null
+                      {(() => {
+                        const allTags = changelog.expand?.tags
+                          ? Array.isArray(changelog.expand.tags)
+                            ? changelog.expand.tags
+                            : [changelog.expand.tags]
+                          : []
+                        const tags = allTags.slice(0, 2)
                         return (
-                          <span
-                            key={tag.id}
-                            className="h-6 px-2 text-xs font-medium rounded-full border flex items-center gap-1"
-                            style={{
-                              backgroundColor: tag.color
-                                ? tag.color + "20"
-                                : undefined,
-                              borderColor: tag.color || undefined,
-                              color: tag.color || undefined,
-                            }}
-                          >
-                            {Icon && <Icon className="h-3 w-3" />}
-                            {tag.name}
-                          </span>
+                          <>
+                            {tags.map((tag) => {
+                              const Icon = tag.icon
+                                ? (
+                                    Icons as unknown as Record<
+                                      string,
+                                      React.ComponentType<{
+                                        className?: string
+                                      }>
+                                    >
+                                  )[tag.icon]
+                                : null
+                              return (
+                                <span
+                                  key={tag.id}
+                                  className="h-6 px-2 text-xs font-medium rounded-full border flex items-center gap-1"
+                                  style={{
+                                    backgroundColor: tag.color
+                                      ? tag.color + "20"
+                                      : undefined,
+                                    borderColor: tag.color || undefined,
+                                    color: tag.color || undefined,
+                                  }}
+                                >
+                                  {Icon && <Icon className="h-3 w-3" />}
+                                  {tag.name}
+                                </span>
+                              )
+                            })}
+                            {allTags.length > 2 && (
+                              <span className="h-6 px-2 text-xs font-medium text-muted-foreground">
+                                +{allTags.length - 2}
+                              </span>
+                            )}
+                          </>
                         )
-                      })}
-                      {changelog.expand?.tags &&
-                        changelog.expand.tags.length > 2 && (
-                          <span className="h-6 px-2 text-xs font-medium text-muted-foreground">
-                            +{changelog.expand.tags.length - 2}
-                          </span>
-                        )}
+                      })()}
                     </div>
                   </TableCell>
                   <TableCell className="p-4 text-sm text-muted-foreground align-middle">

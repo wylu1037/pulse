@@ -4,6 +4,7 @@ import { Changelog } from "@/lib/api/pocketbase"
 import { formatDate } from "@/lib/utils"
 import { marked } from "marked"
 import * as Icons from "lucide-react"
+import { Button } from "./ui/button"
 
 interface ChangelogListProps {
   changelogs: Changelog[]
@@ -49,17 +50,18 @@ export function ChangelogList({ changelogs }: ChangelogListProps) {
                     </h2>
 
                     {/* Tags */}
-                    {changelog.expand?.tags &&
-                      changelog.expand.tags.length > 0 && (
+                    {(() => {
+                      const tags = changelog.expand?.tags
+                        ? Array.isArray(changelog.expand.tags)
+                          ? changelog.expand.tags
+                          : [changelog.expand.tags]
+                        : []
+                      if (tags.length === 0) return null
+                      return (
                         <div className="flex flex-wrap gap-2">
-                          {changelog.expand.tags.map((tag) => {
+                          {tags.map((tag) => {
                             const Icon = tag.icon
-                              ? (
-                                  Icons as unknown as Record<
-                                    string,
-                                    React.ComponentType<{ className?: string }>
-                                  >
-                                )[tag.icon]
+                              ? (Icons as any)[tag.icon]
                               : null
                             return (
                               <span
@@ -79,7 +81,8 @@ export function ChangelogList({ changelogs }: ChangelogListProps) {
                             )
                           })}
                         </div>
-                      )}
+                      )
+                    })()}
                   </div>
                   <div
                     className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance"
