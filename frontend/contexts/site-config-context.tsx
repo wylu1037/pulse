@@ -53,7 +53,7 @@ export function SiteConfigProvider({ children }: { children: ReactNode }) {
 
   const logoUrl =
     config?.logo_url && config?.id
-      ? `${pb.baseURL}/api/files/site_config/${config.id}/${config.logo_url}`
+      ? `/api/files/site_config/${config.id}/${config.logo_url}`
       : null
 
   const value: SiteConfigContextValue = {
