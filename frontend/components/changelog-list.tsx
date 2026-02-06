@@ -4,7 +4,6 @@ import { Changelog } from "@/lib/api/pocketbase"
 import { formatDate } from "@/lib/utils"
 import { marked } from "marked"
 import * as Icons from "lucide-react"
-import { Button } from "./ui/button"
 
 interface ChangelogListProps {
   changelogs: Changelog[]
@@ -61,7 +60,12 @@ export function ChangelogList({ changelogs }: ChangelogListProps) {
                         <div className="flex flex-wrap gap-2">
                           {tags.map((tag) => {
                             const Icon = tag.icon
-                              ? (Icons as any)[tag.icon]
+                              ? (
+                                  Icons as unknown as Record<
+                                    string,
+                                    React.ComponentType<{ className?: string }>
+                                  >
+                                )[tag.icon]
                               : null
                             return (
                               <span
